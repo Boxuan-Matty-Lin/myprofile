@@ -1,6 +1,6 @@
 // app/page.tsx
-import About from "@/components/About"; // ← 如果你的文件名是 About.tsx 用这个大小写
-import { RightToc } from "@/components/RightToc";
+import { RightToc , About , SkillsList } from "@/components/Sections"; // ← 如果你的文件名是 About.tsx 用这个大小写
+
 // import About from "@/components/about"; // ← 只有当文件名真的是 about.tsx 才用这个
 
 export default function Home() {
@@ -90,6 +90,7 @@ export default function Home() {
       <RightToc />
       {/* 用组件替换空占位 */}
       <About />
+      <SkillsList />
 
       {/* 其他区块占位 */}
       <section id="skills" className="min-h-[40svh]" />

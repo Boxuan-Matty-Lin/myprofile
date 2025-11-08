@@ -2,11 +2,10 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import profilePhoto from "@/public/profilePhoto.png";
 
-export default function About() {
+export  function About() {
   return (
     <section id="about" className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
-        {/* 左侧：头像（小屏在上） */}
         <div className="justify-self-center lg:justify-self-start">
           <Avatar className="size-28 sm:size-36 lg:size-50 xl:size-60">
             <AvatarImage
