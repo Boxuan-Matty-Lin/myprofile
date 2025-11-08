@@ -59,7 +59,7 @@ type SkillKey =
 
 const SKILLS: Record<SkillKey, { title: string; items: Skill[] }> = {
   frontend: {
-    title: "Frontend / UI",
+    title: "Frontend",
     items: [
       { label: "React", icon: SiReact },
       { label: "Next.js", icon: SiNextdotjs },
@@ -73,7 +73,7 @@ const SKILLS: Record<SkillKey, { title: string; items: Skill[] }> = {
     ],
   },
   backend: {
-    title: "Backend / API",
+    title: "Backend",
     items: [
       { label: "Node.js", icon: SiNodedotjs },
       { label: "Express", icon: SiExpress },
@@ -94,7 +94,7 @@ const SKILLS: Record<SkillKey, { title: string; items: Skill[] }> = {
     ],
   },
   devops: {
-    title: "DevOps / Delivery",
+    title: "DevOps",
     items: [
       { label: "Docker", icon: SiDocker },
       { label: "Nginx", icon: SiNginx },
@@ -104,7 +104,7 @@ const SKILLS: Record<SkillKey, { title: string; items: Skill[] }> = {
     ],
   },
   quality: {
-    title: "Quality & Process",
+    title: "Testing",
     items: [
       { label: "Vitest", icon: SiVitest },
       { label: "Playwright", imageSrc: "/icons/playwright.svg" },
@@ -227,12 +227,12 @@ export function SkillsList() {
 
       <div className="md:hidden">
         <Tabs defaultValue={DEFAULT_TAB} className="space-y-6">
-          <TabsList className="flex w-full flex-wrap gap-2">
+          <TabsList className="!flex !h-auto !w-full flex-wrap gap-2 !bg-transparent !p-0">
             {SKILL_ENTRIES.map(([key, section]) => (
               <TabsTrigger
                 key={key}
                 value={key}
-                className="flex-1 min-w-[45%]"
+                className="flex-1 min-w-[45%] !whitespace-normal text-center text-sm !font-semibold leading-tight data-[state=active]:shadow-[0_4px_14px_rgba(0,0,0,0.35)] data-[state=active]:border-border data-[state=active]:bg-background"
               >
                 {section.title}
               </TabsTrigger>
