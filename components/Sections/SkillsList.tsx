@@ -48,6 +48,7 @@ type Skill = {
   label: string;
   icon?: IconType;
   imageSrc?: string;
+  invertOnDark?: boolean;
   abbr?: string;
 };
 type SkillKey =
@@ -107,7 +108,11 @@ const SKILLS: Record<SkillKey, { title: string; items: Skill[] }> = {
     title: "Testing",
     items: [
       { label: "Vitest", icon: SiVitest },
-      { label: "Playwright", imageSrc: "/icons/playwright.svg" },
+      {
+        label: "Playwright",
+        imageSrc: "/icons/playwright.svg",
+        invertOnDark: true,
+      },
       { label: "JUnit 5", icon: SiJunit5 },
     ],
   },
@@ -133,13 +138,17 @@ function SkillGlyph({ skill, variant }: { skill: Skill; variant: GlyphVariant })
   }
 
   if (skill.imageSrc) {
+    const imageClasses = [imageClass, "object-contain"];
+    if (skill.invertOnDark) {
+      imageClasses.push("dark:invert");
+    }
     return (
       <Image
         src={skill.imageSrc}
         alt={`${skill.label} logo`}
         width={48}
         height={48}
-        className={[imageClass, "object-contain"].join(" ")}
+        className={imageClasses.join(" ")}
       />
     );
   }
