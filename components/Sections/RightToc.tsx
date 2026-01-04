@@ -62,13 +62,54 @@ export function RightToc({
   React.useEffect(() => {
     const element = document.getElementById(showFromId);
     if (!element) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
 
-    io.observe(element);
-    return () => io.disconnect();
+    const IDLE_HIDE_MS = 1400;
+    let rafId: number | null = null;
+    let idleTimer: number | null = null;
+
+    const clearIdleTimer = () => {
+      if (idleTimer !== null) {
+        window.clearTimeout(idleTimer);
+        idleTimer = null;
+      }
+    };
+
+    const scheduleHide = () => {
+      clearIdleTimer();
+      idleTimer = window.setTimeout(() => setVisible(false), IDLE_HIDE_MS);
+    };
+
+    const updateVisibility = () => {
+      const rect = element.getBoundingClientRect();
+      const isPastSection = rect.bottom <= 0;
+
+      if (!isPastSection) {
+        clearIdleTimer();
+        setVisible(false);
+        return;
+      }
+
+      setVisible(true);
+      scheduleHide();
+    };
+
+    const onScroll = () => {
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        updateVisibility();
+        rafId = null;
+      });
+    };
+
+    updateVisibility();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      clearIdleTimer();
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, [showFromId]);
 
   const onJump = (id: string) => (event: React.MouseEvent) => {
